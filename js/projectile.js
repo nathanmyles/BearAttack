@@ -25,9 +25,14 @@ var Projectile = enchant.Class.create(enchant.Sprite, {
                 }
             }
         }
-        this.moveBy(this.vx, this.vy);
+        if(!game.map.main.hitTest(this.x + this.vx, this.y + this.vy)){
+            this.moveBy(this.vx, this.vy);
+        } else {
+            game.stage.removeChild(this);
+        }
         if((this.x < 0 || this.x > game.map.main.width) || (this.y < 0 || this.y > game.map.main.height)){
             game.stage.removeChild(this);
         }
+
     }
 });
