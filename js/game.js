@@ -24,15 +24,16 @@ function getHeight() {
 }
 var windowWidth = getWidth();
 var windowHeight = getHeight();
-
+if(windowWidth > 480) windowWidth = 480;
+if(windowHeight > 480) windowHeight = 480;
 enchant();
 var game;
 window.onload = function() {
-    game = new Game(320, 320);
+    game = new Game(windowWidth, windowHeight);
     game.fps = 15;
     game.enemySpeed = 4;
     game.maxShots = 3;
-    game.score =
+    game.score = 0;
     game.preload('img/map1.gif', 'img/chara0.gif', 'img/chara1.png', 'img/graphic.png');
     game.onload = function() {
         game.map = new Map(16, 16);
@@ -176,22 +177,43 @@ window.onload = function() {
         game.stage.addChild(game.foregroundMap);
         game.rootScene.addChild(game.stage);
 
+
+        var ScoreLabel = enchant.Class.create(enchant.Label, {
+            initialize: function(text){
+                enchant.Label.call(this, text);
+                this.moveTo(windowWidth - 100, 0);
+                game.rootScene.addChild(this);
+            },
+            onenterframe: function(){
+                this.text = 'Score:' + game.score;
+            }
+        });
+
+        var scoreLabel = new ScoreLabel('Score: ');
+
+
+        var LifeLabel = enchant.Class.create(enchant.Label, {
+            initialize: function(text){
+                enchant.Label.call(this, text);
+                this.moveTo(0, 0);
+                game.rootScene.addChild(this);
+            },
+            onenterframe: function(){
+                this.text = 'Life:' + game.player.health;
+            }
+        });
+
+        var lifeLabel = new LifeLabel('Life: ');
+
         game.pad = new Pad();
-        game.pad.x = 220;
-        game.pad.y = 220;
+        game.pad.x = game.width - 100;
+        game.pad.y = game.height - 100;
         game.rootScene.addChild(game.pad);
 
         game.stick = new APad();
         game.stick.x = 0;
-        game.stick.y = 220;
+        game.stick.y = game.height - 100;
         game.rootScene.addChild(game.stick);
-
-        var badGuy = new BadGuy(10 * 16 - 8, 10 * 16);
-        game.stage.addChild(badGuy);
-        badGuy = new BadGuy(10 * 16 - 8, 10 * 16);
-        game.stage.addChild(badGuy);
-        badGuy = new BadGuy(10 * 16 - 8, 10 * 16);
-        game.stage.addChild(badGuy);
 
         game.rootScene.addEventListener('enterframe', function(e) {
             var x = Math.min((game.width  - 16) / 2 - game.player.x, 0);
@@ -200,6 +222,12 @@ window.onload = function() {
             y = Math.max(game.height, y + game.map.height) - game.map.height;
             game.stage.x = x;
             game.stage.y = y;
+            if(rand(1000) < game.frame / 20 * Math.sin(game.frame / 100) + game.frame / 20 + 50) {
+                var badGuyX = rand(game.map.width);
+                var badGuyY = rand(game.map.height);
+                var badGuy = new BadGuy(badGuyX - 8, badGuyY);
+                game.stage.addChild(badGuy);
+            }
         });
     };
     game.start();

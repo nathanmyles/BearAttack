@@ -18,7 +18,7 @@ var Projectile = enchant.Class.create(enchant.Sprite, {
                 game.stage.removeChild(hits[0]);
                 game.stage.removeChild(this);
                 //var drop = new Drop(hits[i][0].x, hits[i][0].y);
-                game.score ++;
+                game.score++;
             }
         } else {
             this.moveBy(this.vx, this.vy);

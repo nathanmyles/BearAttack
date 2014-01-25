@@ -52,8 +52,25 @@ var Player = enchant.Class.create(enchant.Sprite, {
         if (game.stick.isTouched) {
             if((Math.abs(game.stick.vx) > 0.5 || Math.abs(game.stick.vy) > 0.5) &&
                 Projectile.collection.length < game.maxShots){
+                if(game.stick.vx < -0.5){
+                    this.direction = 1;
+                } else if(game.stick.vx > 0.5){
+                    this.direction = 2;
+                } else if(game.stick.vy < -0.5){
+                    this.direction = 3;
+                } else if(game.stick.vy > 0.5){
+                    this.direction = 4;
+                }
                 var projectile = new Projectile(this.x, this.y, game.stick.vx * 5, game.stick.vy * 5);
                 game.stage.addChild(projectile);
+            }
+        }
+        var hits = this.intersect(BadGuy);
+        for(var i = 0, len = hits.length; i < len; i++){
+            game.stage.removeChild(hits[0]);
+            if(--this.health < 1){
+                alert('Game Over');
+                game.stop();
             }
         }
     }
