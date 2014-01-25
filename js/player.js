@@ -43,7 +43,7 @@ var Player = enchant.Class.create(enchant.Sprite, {
             if (this.vx || this.vy) {
                 var x = this.x + (this.vx ? this.vx / Math.abs(this.vx) * 16 : 0) + 16;
                 var y = this.y + (this.vy ? this.vy / Math.abs(this.vy) * 16 : 0) + 16;
-                if (0 <= x && x < game.map.width && 0 <= y && y < game.map.height && !game.map.hitTest(x, y)) {
+                if (0 <= x && x < game.map.main.width && 0 <= y && y < game.map.main.height && !game.map.main.hitTest(x, y)) {
                     this.isMoving = true;
                     arguments.callee.call(this);
                 }
@@ -65,13 +65,6 @@ var Player = enchant.Class.create(enchant.Sprite, {
                 game.stage.addChild(projectile);
             }
         }
-        var hits = this.intersect(BadGuy);
-        for(var i = 0, len = hits.length; i < len; i++){
-            game.stage.removeChild(hits[0]);
-            if(--this.health < 1){
-                alert('Game Over');
-                game.stop();
-            }
-        }
+
     }
 });

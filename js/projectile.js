@@ -12,19 +12,22 @@ var Projectile = enchant.Class.create(enchant.Sprite, {
         this.frame = 1;
     },
     onenterframe: function(){
-        var hits = this.intersect(BadGuy);
-        if(hits.length){
-            for(var i = 0, len = hits.length; i < len; i++){
-                game.stage.removeChild(hits[0]);
+
+        var badGuys = BadGuy.collection.slice();
+        for(var i = 0, len = badGuys.length; i < len; i++){
+            var badGuy = badGuys[i];
+            if(badGuy.within(this, 12)){
                 game.stage.removeChild(this);
-                //var drop = new Drop(hits[i][0].x, hits[i][0].y);
-                game.score++;
+                if(--badGuy.health < 1){
+                    game.stage.removeChild(badGuy);
+                    //var drop = new Drop(hits[i][0].x, hits[i][0].y);
+                    game.score++;
+                }
             }
-        } else {
-            this.moveBy(this.vx, this.vy);
-            if((this.x < 0 || this.x > game.map.width) || (this.y < 0 || this.y > game.map.height)){
-                game.stage.removeChild(this);
-            }
+        }
+        this.moveBy(this.vx, this.vy);
+        if((this.x < 0 || this.x > game.map.main.width) || (this.y < 0 || this.y > game.map.main.height)){
+            game.stage.removeChild(this);
         }
     }
 });

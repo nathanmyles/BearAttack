@@ -6,8 +6,15 @@ var BadGuy = enchant.Class.create(enchant.Sprite, {
         this.image = game.assets['img/chara1.png'];
         this.frame = 5;
         this.isMoving = false;
+        this.health = rand(5);
     },
     onenterframe: function(){
+        if(game.player.within(this, 8)){
+            game.stage.removeChild(this);
+            if(--game.player.health < 1){
+                game.end(game.score, "SCORE: " + game.score)
+            }
+        }
 
         if (this.isMoving) {
             this.moveBy(this.vx, this.vy);
@@ -18,21 +25,24 @@ var BadGuy = enchant.Class.create(enchant.Sprite, {
             }
         } else {
             this.vx = this.vy = 0;
-            var dx = Math.floor(Math.random() * game.enemySpeed);
-            if(this.x > game.player.x){
-                this.vx = -dx;
-                this.scaleX = -1;
+            var dx = game.enemySpeed;
+            if(Math.abs(this.x - game.player.x) > Math.abs(this.y - game.player.y)){
+                if(this.x > game.player.x){
+                    this.vx = -dx;
+                    this.scaleX = -1;
+                } else {
+                    this.vx = dx;
+                    this.scaleX = 1;
+                }
             } else {
-                this.vx = dx;
-                this.scaleX = 1;
+                var dy = game.enemySpeed;
+                this.vy = (this.y > game.player.y) ? -dy : dy;
             }
-            var dy = Math.floor(Math.random() * game.enemySpeed);
-            this.vy = (this.y > game.player.y) ? -dy : dy;
 
             if (this.vx || this.vy) {
                 var x = this.x + (this.vx ? this.vx / Math.abs(this.vx) * 16 : 0) + 16;
                 var y = this.y + (this.vy ? this.vy / Math.abs(this.vy) * 16 : 0) + 16;
-                if (0 <= x && x < game.map.width && 0 <= y && y < game.map.height && !game.map.hitTest(x, y)) {
+                if (0 <= x && x < game.map.main.width && 0 <= y && y < game.map.main.height && !game.map.main.hitTest(x, y)) {
                     this.isMoving = true;
                     arguments.callee.call(this);
                 }
