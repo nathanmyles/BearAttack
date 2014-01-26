@@ -50,7 +50,7 @@ window.onload = function() {
     game.bonusFanGunTimeout = 0;
     game.bonusFanGun = false;
 
-    game.preload('sounds/mLaserPew.mp3', 'img/map1.gif', 'img/chara0.gif', 'img/chara1.png', 'img/graphic.png');
+    game.preload('sounds/mLaserPew.mp3', 'img/map1.gif', 'img/chara0.gif', 'img/chara1.png', 'img/graphic.png', 'img/EvilBearSprite.gif');
     game.onload = function() {
         myAudio = new Audio('sounds/mShellShock.mp3');
         myAudio.loop = true;
@@ -90,7 +90,7 @@ window.onload = function() {
                     game.reload();
                 });
 
-                game.rootScene.addChild(game.levelCompleteLabel);
+                game.rootScene.insertBefore(game.levelCompleteLabel, game.pad);
             }
         });
 
@@ -121,6 +121,8 @@ window.onload = function() {
         game.stick.x = 15;
         game.stick.y = game.height - 115;
         game.rootScene.addChild(game.stick);
+
+        game.inPlay = true;
     };
     game.loadStage = function(map){
         game.map = map;
@@ -141,7 +143,9 @@ window.onload = function() {
         game.score = 0;
         game.enemysInLevel = 0;
         game.maxEnemysInLevel = game.maxEnemysInLevel * (game.level * 0.5);
-        if(game.enemySpeed < 4) game.enemySpeed++;
+        if(game.enemySpeed < 3 || (game.level > 10 && game.enemySpeed < 4)){
+            game.enemySpeed = Math.floor(game.enemySpeed * 1.5);
+        }
         game.rootScene.removeChild(game.stage);
 
         game.loadLevel();
