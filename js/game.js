@@ -41,6 +41,7 @@ window.onload = function() {
     game.weaponCoolDown = 500;
     game.enemysInLevel = 0;
     game.maxEnemysInLevel = 25;
+    game.maxEnemysOnMap = 15;
     game.enemyAttackCoolDown = 2000;
     game.score = 0;
 
@@ -77,7 +78,7 @@ window.onload = function() {
             game.stage.x = x;
             game.stage.y = y;
             if(rand(1000) < game.frame / 20 * Math.sin(game.frame / 100) + game.frame / 20 + 25 &&
-                game.enemysInLevel < game.maxEnemysInLevel) {
+                game.enemysInLevel < game.maxEnemysInLevel && BadGuy.collection.length < game.maxEnemysOnMap) {
 
                 var spawnPoint = game.map.spawnPoints[rand(game.map.spawnPoints.length)];
                 var badGuy = new BadGuy(spawnPoint.x - 8, spawnPoint.y);
@@ -143,7 +144,8 @@ window.onload = function() {
 
         game.score = 0;
         game.enemysInLevel = 0;
-        game.maxEnemysInLevel = game.maxEnemysInLevel * (game.level * 0.5);
+        game.maxEnemysInLevel = game.maxEnemysInLevel * (game.level * 0.75);
+        game.maxEnemysOnMap = game.maxEnemysOnMap * (game.level * 0.5);
         if(game.enemySpeed < 3 || (game.level > 10 && game.enemySpeed < 4)){
             game.enemySpeed = Math.floor(game.enemySpeed * 1.5);
         }
