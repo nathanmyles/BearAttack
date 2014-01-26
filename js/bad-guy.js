@@ -9,10 +9,12 @@ var BadGuy = enchant.Class.create(enchant.Sprite, {
         this.health = rand(5);
     },
     onenterframe: function(){
-        if(game.player.within(this, 8)){
+        if(game.player.within(this, 12)){
             game.stage.removeChild(this);
-            if(--game.player.health < 1){
-                game.end(game.score, "SCORE: " + game.score)
+            if(--game.player.health < 0){
+                game.end(game.score, "SCORE: " + game.score);
+                game.totalScore += game.score;
+                game.stage.addChild(new TotalScoreLabel(game.width / 2, (game.height / 2) + 50, game.totalScore));
             }
         }
 

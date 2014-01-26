@@ -1,29 +1,46 @@
-var ScoreLabel = enchant.Class.create(enchant.Label, {
-    initialize: function(text){
-        enchant.Label.call(this, text);
-        this.moveTo(game.width - 100, 0);
-    },
-    onenterframe: function(){
-        this.text = 'Score:' + game.score;
+var LevelCompleteLabel = enchant.Class.create(enchant.ui.MutableText, {
+    initialize: function(x, y, displayTime, callback) {
+        enchant.ui.MutableText.call(this, 0, 0);
+
+        this.text = "Level Complete!";
+
+        this.x = x - (this.width / 2);
+        this.y = y;
+
+        this.tl.delay(displayTime * game.fps).then(function(){
+            game.stage.removeChild(this);
+            if(typeof callback === "function"){
+                callback();
+            }
+        });
     }
 });
 
-var TimeLabel = enchant.Class.create(enchant.Label, {
-    initialize: function(text){
-        enchant.Label.call(this, text);
-        this.moveTo((game.width / 2) - 50, 0);
+var LevelLabel = enchant.Class.create(enchant.ui.MutableText, {
+    initialize: function(x, y, level) {
+        enchant.ui.MutableText.call(this, 0, 0);
+
+        this.level = (level) ? level : 0;
+        this.label = "Level:";
+        this.text = this.label + this.level;
+
+        this.x = x - (this.width / 2);
+        this.y = y;
     },
     onenterframe: function(){
-        this.text = Math.floor(((gameLength - game.frame) / 20)) + ' seconds remaining';
+        this.text = this.label + this.level;
     }
 });
 
-var LifeLabel = enchant.Class.create(enchant.Label, {
-    initialize: function(text){
-        enchant.Label.call(this, text);
-        this.moveTo(0, 50);
-    },
-    onenterframe: function(){
-        this.text = 'Life:' + game.player.life;
+var TotalScoreLabel = enchant.Class.create(enchant.ui.MutableText, {
+    initialize: function(x, y, score) {
+        enchant.ui.MutableText.call(this, 0, 0);
+
+        this.score = (score) ? score : 0;
+        this.label = "Total Score:";
+        this.text = this.label + score;
+
+        this.x = x - (this.width / 2);
+        this.y = y;
     }
 });

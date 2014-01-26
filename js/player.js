@@ -10,7 +10,8 @@ var Player = enchant.Class.create(enchant.Sprite, {
         this.isMoving = false;
         this.direction = 0;
         this.walk = 1;
-        this.health = 20;
+        this.bulletSpeed = 10;
+        this.health = 10;
     },
     onenterframe: function(){
         this.frame = this.direction * 3 + this.walk;
@@ -49,21 +50,56 @@ var Player = enchant.Class.create(enchant.Sprite, {
                 }
             }
         }
+        var vx, vy = 0;
         if (game.stick.isTouched) {
-            if((Math.abs(game.stick.vx) > 0.5 || Math.abs(game.stick.vy) > 0.5) &&
-                Projectile.collection.length < game.maxShots){
-                if(game.stick.vx < -0.5){
-                    this.direction = 1;
-                } else if(game.stick.vx > 0.5){
-                    this.direction = 2;
-                } else if(game.stick.vy < -0.5){
-                    this.direction = 3;
-                } else if(game.stick.vy > 0.5){
-                    this.direction = 4;
-                }
-                var projectile = new Projectile(this.x, this.y, game.stick.vx * 5, game.stick.vy * 5);
-                game.stage.addChild(projectile);
+            if((Math.abs(game.stick.vx) > 0.5 || Math.abs(game.stick.vy) > 0.5)){
+
+                vx = game.stick.vx * this.bulletSpeed;
+                vy = game.stick.vy * this.bulletSpeed;
             }
+        } else {
+            if(game.input.fireLeft && !game.input.fireRight){
+                if(game.input.fireUp && !game.input.fireDown){
+                    vx = -this.bulletSpeed;
+                    vy = -this.bulletSpeed;
+                } else if(game.input.fireDown && !game.input.fireUp) {
+                    vx = -this.bulletSpeed;
+                    vy = this.bulletSpeed;
+                } else {
+                    vx = -this.bulletSpeed;
+                    vy = 0;
+                }
+            } else if(game.input.fireRight && !game.input.fireLeft){
+                if(game.input.fireUp && !game.input.fireDown){
+                    vx = this.bulletSpeed;
+                    vy = -this.bulletSpeed;
+                } else if(game.input.fireDown && !game.input.fireUp) {
+                    vx = this.bulletSpeed;
+                    vy = this.bulletSpeed;
+                } else {
+                    vx = this.bulletSpeed;
+                    vy = 0;
+                }
+            } else if(game.input.fireUp && !game.input.fireDown){
+                vx = 0;
+                vy = -this.bulletSpeed;
+            } else if(game.input.fireDown && !game.input.fireUp){
+                vx = 0;
+                vy = this.bulletSpeed;
+            }
+        }
+        if((vx || vy) && (Projectile.collection.length < game.maxShots || game.bonusChainGun)){
+            if(vx < -1){
+                this.direction = 1;
+            } else if(vx > 1){
+                this.direction = 2;
+            } else if(vy < -1){
+                this.direction = 3;
+            } else if(vy > 1){
+                this.direction = 4;
+            }
+            var projectile = new Projectile(this.x, this.y, vx, vy);
+            game.stage.addChild(projectile);
         }
 
     }
