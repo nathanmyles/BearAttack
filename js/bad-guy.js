@@ -12,14 +12,14 @@ var BadGuy = enchant.Class.create(enchant.Sprite, {
         this.walk = 1;
         this.direction = 0;
         this.scaleX = -1;
+        this.lastAttackHit = 0;
     },
     onenterframe: function(){
         if(game.player.within(this, 12)){
-            game.stage.removeChild(this);
-            if(--game.player.health < 0){
-                game.end(game.score, "SCORE: " + game.score);
-                game.totalScore += game.score;
-                game.stage.addChild(new TotalScoreLabel(game.width / 2, (game.height / 2) + 50, game.totalScore));
+            var now = new Date().getTime();
+            if(now - game.enemyAttackCoolDown > this.lastAttackHit){
+                this.lastAttackHit = now;
+                game.player.hitByEnemy();
             }
         }
         this.frame = this.direction * 4 + this.walk;

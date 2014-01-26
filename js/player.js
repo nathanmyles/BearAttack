@@ -13,6 +13,7 @@ var Player = enchant.Class.create(enchant.Sprite, {
         this.bulletSpeed = 10;
         this.health = 10;
         this.scaleX = -1;
+        this.lastShot = 0;
     },
     onenterframe: function(){
         this.frame = this.direction * 4 + this.walk;
@@ -90,8 +91,8 @@ var Player = enchant.Class.create(enchant.Sprite, {
             }
         }
         var now = new Date().getTime();
-        if((vx || vy) && (now - game.weaponCoolDown > game.lastShot || game.bonusChainGun)){
-            game.lastShot = now;
+        if((vx || vy) && (now - game.weaponCoolDown > this.lastShot || game.bonusChainGun)){
+            this.lastShot = now;
             var projectileX = this.x;
             var projectileY = this.y;
             if(vx < -1){
@@ -147,5 +148,10 @@ var Player = enchant.Class.create(enchant.Sprite, {
             }
         }
 
+    },
+    hitByEnemy: function(){
+        if(--this.health < 0){
+            game.showEndScreen();
+        }
     }
 });

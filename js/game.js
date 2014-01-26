@@ -41,6 +41,7 @@ window.onload = function() {
     game.weaponCoolDown = 500;
     game.enemysInLevel = 0;
     game.maxEnemysInLevel = 25;
+    game.enemyAttackCoolDown = 2000;
     game.score = 0;
 
     game.bonusChainGunTimeout = 0;
@@ -149,6 +150,11 @@ window.onload = function() {
         game.rootScene.removeChild(game.stage);
 
         game.loadLevel();
+    };
+    game.showEndScreen = function(){
+        game.end(game.score, "SCORE: " + game.score);
+        game.totalScore += game.score;
+        game.stage.addChild(new TotalScoreLabel(game.width / 2, (game.height / 2) + 50, game.totalScore));
     };
     game.start();
 };
