@@ -50,7 +50,7 @@ window.onload = function() {
     game.bonusFanGunTimeout = 0;
     game.bonusFanGun = false;
 
-    game.preload('img/map1.gif', 'img/chara0.gif', 'img/chara1.png', 'img/graphic.png');
+    game.preload('img/map1.gif', 'img/chara0.gif', 'img/graphic.png', 'img/EvilBearSprite.gif');
     game.onload = function() {
 
         game.keybind(65, 'fireLeft');
@@ -88,7 +88,7 @@ window.onload = function() {
                     game.reload();
                 });
 
-                game.rootScene.addChild(game.levelCompleteLabel);
+                game.rootScene.insertBefore(game.levelCompleteLabel, game.pad);
             }
         });
 
@@ -117,6 +117,8 @@ window.onload = function() {
         game.stick.x = 15;
         game.stick.y = game.height - 115;
         game.rootScene.addChild(game.stick);
+
+        game.inPlay = true;
     };
     game.loadStage = function(map){
         game.map = map;

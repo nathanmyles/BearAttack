@@ -3,10 +3,15 @@ var BadGuy = enchant.Class.create(enchant.Sprite, {
         enchant.Sprite.call(this, 32, 32);
         this.x = x;
         this.y = y;
-        this.image = game.assets['img/chara1.png'];
+        var image = new Surface(128, 128);
+        image.draw(game.assets['img/EvilBearSprite.gif'], 0, 0, 80, 80, 0, 0, 128, 128);
+        this.image = image;
         this.frame = 5;
         this.isMoving = false;
         this.health = rand(5);
+        this.walk = 1;
+        this.direction = 0;
+        this.scaleX = -1;
     },
     onenterframe: function(){
         if(game.player.within(this, 12)){
@@ -17,13 +22,20 @@ var BadGuy = enchant.Class.create(enchant.Sprite, {
                 game.stage.addChild(new TotalScoreLabel(game.width / 2, (game.height / 2) + 50, game.totalScore));
             }
         }
-
+        this.frame = this.direction * 4 + this.walk;
         if (this.isMoving) {
             this.moveBy(this.vx, this.vy);
+            if((this.x < 0 || this.x > game.map.main.width) || (this.y < 0 || this.y > game.map.main.height)){
+                game.stage.removeChild(this);
+            }
 
+            if (!(game.frame % 4)) {
+                this.walk++;
+                this.walk %= 4;
+            }
             if ((this.vx && (this.x-8) % 16 == 0) || (this.vy && this.y % 16 == 0)) {
                 this.isMoving = false;
-                this.frame = 5;
+                this.walk = 1;
             }
         } else {
             this.vx = this.vy = 0;
@@ -31,7 +43,7 @@ var BadGuy = enchant.Class.create(enchant.Sprite, {
             var distanceX = Math.abs(this.x - game.player.x);
             var distanceY = Math.abs(this.y - game.player.y);
             var moveX = false;
-            if(Math.abs(distanceX - distanceY) > 25){
+            if(Math.abs(distanceX - distanceY) > 100){
                 moveX = distanceX > distanceY;
             } else {
                 moveX = rand(2);
@@ -39,14 +51,20 @@ var BadGuy = enchant.Class.create(enchant.Sprite, {
             if(moveX){
                 if(this.x > game.player.x){
                     this.vx = -dx;
-                    this.scaleX = -1;
+                    this.direction = 1;
                 } else {
                     this.vx = dx;
-                    this.scaleX = 1;
+                    this.direction = 2;
                 }
             } else {
                 var dy = game.enemySpeed;
-                this.vy = (this.y > game.player.y) ? -dy : dy;
+                if(this.y > game.player.y){
+                    this.vy = -dy;
+                    this.direction = 3;
+                } else {
+                    this.vy = dy;
+                    this.direction = 0;
+                }
             }
 
             if (this.vx || this.vy) {
@@ -58,6 +76,5 @@ var BadGuy = enchant.Class.create(enchant.Sprite, {
                 }
             }
         }
-        this.frame = [0, 1, 0, 2][Math.floor(this.age/5) % 4] + 5;
     }
 });
