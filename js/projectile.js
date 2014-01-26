@@ -21,12 +21,19 @@ var Projectile = enchant.Class.create(enchant.Sprite, {
                 game.score++;
                 if(--badGuy.health < 1){
                     var shouldDrop = rand(3);
-                    if(shouldDrop){
-                        if(shouldDrop == 1){
+                    switch(shouldDrop){
+                        case 0:
+                            new Drop(badGuy.x, badGuy.y);
+                            break;
+                        case 1:
                             new ChainGun(badGuy.x, badGuy.y);
-                        } else {
+                            break;
+                        case 2:
                             new FireThroughObjects(badGuy.x, badGuy.y);
-                        }
+                            break;
+                        case 3:
+                            new FanGun(badGuy.x, badGuy.y);
+                            break;
                     }
                     game.stage.removeChild(badGuy);
                     game.score += 5;

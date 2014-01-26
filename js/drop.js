@@ -6,8 +6,14 @@ var Drop = enchant.Class.create(enchant.Sprite, {
         this.tl.delay(300).then(function(){
             game.stage.removeChild(this);
         });
-        this.frame = 64;
+        this.frame = 30;
         game.stage.addChild(this);
+    },
+    onenterframe: function(){
+        if(game.player.intersect(this)){
+            game.stage.removeChild(this);
+            game.score += 10;
+        }
     }
 });
 
@@ -41,6 +47,23 @@ var FireThroughObjects = enchant.Class.create(Drop, {
             }
             game.bonusFireThroughObjectsTimeout = setTimeout(function(){ game.bonusFireThroughObjects = false }, 3000);
             game.bonusFireThroughObjects = true;
+        }
+    }
+});
+
+var FanGun = enchant.Class.create(Drop, {
+    initialize: function(x, y){
+        Drop.call(this, x, y);
+        this.frame = 66;
+    },
+    onenterframe: function(){
+        if(game.player.intersect(this)){
+            game.stage.removeChild(this);
+            if(game.bonusFanGunTimeout){
+                clearTimeout(game.bonusFanGunTimeout);
+            }
+            game.bonusFanGunTimeout = setTimeout(function(){ game.bonusFanGun = false }, 3000);
+            game.bonusFanGun = true;
         }
     }
 });

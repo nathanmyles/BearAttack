@@ -102,6 +102,32 @@ var Player = enchant.Class.create(enchant.Sprite, {
             }
             var projectile = new Projectile(this.x, this.y, vx, vy);
             game.stage.addChild(projectile);
+            if(game.bonusFanGun){
+                var vx1;
+                var vy1;
+                var vx2;
+                var vy2;
+                if(vx - vy > -1 && vx - vy < 1){
+                    vx1 = vx - 0.75;
+                    vy1 = vy + 0.75;
+                    vx2 = vx + 0.75;
+                    vy2 = vy - 0.75;
+                } else if(Math.abs(vx) - Math.abs(vy) > -1 && Math.abs(vx) - Math.abs(vy) < 1) {
+                    vx1 = vx + 0.75;
+                    vy1 = vy + 0.75;
+                    vx2 = vx - 0.75;
+                    vy2 = vy - 0.75;
+                } else {
+                    vx1 = (vx < 1) ? vx + 0.75 : vx;
+                    vy1 = (vy < 1) ? vy - 0.75 : vy;
+                    vx2 = (vx < 1) ? vx - 0.75 : vx;
+                    vy2 = (vy < 1) ? vy + 0.75 : vy;
+                }
+                var projectile1 = new Projectile(this.x, this.y, vx1, vy1);
+                game.stage.addChild(projectile1);
+                var projectile2 = new Projectile(this.x, this.y, vx2, vy2);
+                game.stage.addChild(projectile2);
+            }
         }
 
     }

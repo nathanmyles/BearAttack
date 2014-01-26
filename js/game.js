@@ -48,6 +48,8 @@ window.onload = function() {
     game.bonusChainGun = false;
     game.bonusFireThroughObjectsTimeout = 0;
     game.bonusFireThroughObjects = false;
+    game.bonusFanGunTimeout = 0;
+    game.bonusFanGun = false;
 
     game.preload('img/map1.gif', 'img/chara0.gif', 'img/chara1.png', 'img/graphic.png');
     game.onload = function() {
