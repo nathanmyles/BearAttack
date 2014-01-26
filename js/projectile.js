@@ -20,26 +20,7 @@ var Projectile = enchant.Class.create(enchant.Sprite, {
             if(badGuy.within(this, 12)){
                 game.stage.removeChild(this);
                 game.score++;
-                if(--badGuy.health < 1){
-                    var shouldDrop = rand(10);
-                    switch(shouldDrop){
-                        case 0:
-                        case 1:
-                            new Drop(badGuy.x, badGuy.y);
-                            break;
-                        case 2:
-                            new ChainGun(badGuy.x, badGuy.y);
-                            break;
-                        case 3:
-                            new FireThroughObjects(badGuy.x, badGuy.y);
-                            break;
-                        case 4:
-                            new FanGun(badGuy.x, badGuy.y);
-                            break;
-                    }
-                    game.stage.removeChild(badGuy);
-                    game.score += 5;
-                }
+                badGuy.hitByPlayer();
             }
         }
         if(!game.map.main.hitTest(this.x + this.vx, this.y + this.vy) || game.bonusFireThroughObjects){

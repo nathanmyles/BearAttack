@@ -70,5 +70,27 @@ var BadGuy = enchant.Class.create(enchant.Sprite, {
                 }
             }
         }
+    },
+    hitByPlayer: function(){
+        if(--this.health < 1){
+            var shouldDrop = rand(10);
+            switch(shouldDrop){
+                case 0:
+                case 1:
+                    new Drop(this.x, this.y);
+                    break;
+                case 2:
+                    new ChainGun(this.x, this.y);
+                    break;
+                case 3:
+                    new FireThroughObjects(this.x, this.y);
+                    break;
+                case 4:
+                    new FanGun(this.x, this.y);
+                    break;
+            }
+            game.stage.removeChild(this);
+            game.score += 5;
+        }
     }
 });
