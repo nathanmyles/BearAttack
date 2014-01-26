@@ -8,10 +8,11 @@ var LevelCompleteLabel = enchant.Class.create(enchant.ui.MutableText, {
         this.y = y;
 
         this.tl.delay(displayTime * game.fps).then(function(){
-            game.stage.removeChild(this);
+            game.rootScene.removeChild(this);
             if(typeof callback === "function"){
                 callback();
             }
+            delete this;
         });
     }
 });

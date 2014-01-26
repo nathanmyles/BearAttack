@@ -23,13 +23,12 @@ function getHeight() {
     return 320;
 }
 var windowWidth = getWidth();
+var scale = windowWidth / 320;
 var windowHeight = getHeight();
-if(windowWidth > 480) windowWidth = 480;
-if(windowHeight > 480) windowHeight = 480;
 enchant();
 var game;
 window.onload = function() {
-    game = new Game(windowWidth, windowHeight);
+    game = new Game(320, windowHeight / scale);
     game.fps = 15;
 
     game.inPlay = false;
@@ -82,44 +81,41 @@ window.onload = function() {
                 game.stage.addChild(badGuy);
                 game.enemysInLevel++;
             }
-            if(Math.floor(game.age / game.fps) % 30 == 0){
-                game.enemySpeed++;
-            }
             if(game.enemysInLevel >= game.maxEnemysInLevel && BadGuy.collection.length == 0 && game.inPlay){
                 game.inPlay = false;
 
-                var levelCompleteLabel = new LevelCompleteLabel(game.width / 2, game.height / 2, 15, function(){
+                game.levelCompleteLabel = new LevelCompleteLabel(game.width / 2, game.height / 2, 10, function(){
                     game.reload();
                 });
 
-                game.stage.addChild(levelCompleteLabel);
+                game.rootScene.addChild(game.levelCompleteLabel);
             }
-
-            game.inPlay = true;
         });
+
+        game.inPlay = true;
     };
     game.loadLevel = function(){
         var index = rand(MapList.length);
         var map = MapList[index];
         game.loadStage(map);
 
-        game.scoreLabel = new ScoreLabel(game.width - 145, 0);
-        game.stage.addChild(game.scoreLabel);
+        game.scoreLabel = new ScoreLabel(0, 15);
+        game.rootScene.addChild(game.scoreLabel);
 
         game.lifeLabel = new LifeLabel(0, 0, game.player.health);
-        game.stage.addChild(game.lifeLabel);
+        game.rootScene.addChild(game.lifeLabel);
 
         game.levelLabel = new LevelLabel((game.width / 2), game.height - 20, game.level);
-        game.stage.addChild(game.levelLabel);
+        game.rootScene.addChild(game.levelLabel);
 
         game.pad = new Pad();
-        game.pad.x = game.width - 100;
-        game.pad.y = game.height - 100;
+        game.pad.x = game.width - 115;
+        game.pad.y = game.height - 115;
         game.rootScene.addChild(game.pad);
 
         game.stick = new APad();
-        game.stick.x = 0;
-        game.stick.y = game.height - 100;
+        game.stick.x = 15;
+        game.stick.y = game.height - 115;
         game.rootScene.addChild(game.stick);
     };
     game.loadStage = function(map){
