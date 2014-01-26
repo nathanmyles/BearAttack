@@ -3,8 +3,8 @@ var Player = enchant.Class.create(enchant.Sprite, {
         enchant.Sprite.call(this, 32, 32);
         this.x = x;
         this.y = y;
-        var image = new Surface(96, 128);
-        image.draw(game.assets['img/chara0.gif'], 0, 0, 96, 128, 0, 0, 96, 128);
+        var image = new Surface(128, 128);
+        image.draw(game.assets['img/HeroSprite.gif'], 0, 0, 128, 128, 0, 0, 128, 128);
         this.image = image;
 
         this.isMoving = false;
@@ -12,15 +12,16 @@ var Player = enchant.Class.create(enchant.Sprite, {
         this.walk = 1;
         this.bulletSpeed = 10;
         this.health = 10;
+        this.scaleX = -1;
     },
     onenterframe: function(){
-        this.frame = this.direction * 3 + this.walk;
+        this.frame = this.direction * 4 + this.walk;
         if (this.isMoving) {
             this.moveBy(this.vx, this.vy);
 
-            if (!(game.frame % 3)) {
+            if (this.walk % 4) {
                 this.walk++;
-                this.walk %= 3;
+                this.walk %= 4;
             }
             if ((this.vx && (this.x-8) % 16 == 0) || (this.vy && this.y % 16 == 0)) {
                 this.isMoving = false;
@@ -91,6 +92,8 @@ var Player = enchant.Class.create(enchant.Sprite, {
         var now = new Date().getTime();
         if((vx || vy) && (now - game.weaponCoolDown > game.lastShot || game.bonusChainGun)){
             game.lastShot = now;
+            var projectileX = this.x;
+            var projectileY = this.y;
             if(vx < -1){
                 this.direction = 1;
             } else if(vx > 1){
@@ -98,9 +101,23 @@ var Player = enchant.Class.create(enchant.Sprite, {
             } else if(vy < -1){
                 this.direction = 3;
             } else if(vy > 1){
-                this.direction = 4;
+                this.direction = 0;
             }
-            var projectile = new Projectile(this.x, this.y, vx, vy);
+
+            if(vx < -1){
+                projectileX -= 12;
+            }
+            if(vx > 1){
+                projectileX += 12;
+            }
+            if(vy < -1){
+                projectileY -= 12;
+            }
+            if(vy > 1){
+                projectileY += 12;
+            }
+
+            var projectile = new Projectile(projectileX, projectileY, vx, vy);
             game.stage.addChild(projectile);
             if(game.bonusFanGun){
                 var vx1;
@@ -123,9 +140,9 @@ var Player = enchant.Class.create(enchant.Sprite, {
                     vx2 = (vx < 1) ? vx - 0.75 : vx;
                     vy2 = (vy < 1) ? vy + 0.75 : vy;
                 }
-                var projectile1 = new Projectile(this.x, this.y, vx1, vy1);
+                var projectile1 = new Projectile(projectileX, projectileY, vx1, vy1);
                 game.stage.addChild(projectile1);
-                var projectile2 = new Projectile(this.x, this.y, vx2, vy2);
+                var projectile2 = new Projectile(projectileX, projectileY, vx2, vy2);
                 game.stage.addChild(projectile2);
             }
         }

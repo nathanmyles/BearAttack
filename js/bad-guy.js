@@ -4,7 +4,7 @@ var BadGuy = enchant.Class.create(enchant.Sprite, {
         this.x = x;
         this.y = y;
         var image = new Surface(128, 128);
-        image.draw(game.assets['img/EvilBearSprite.gif'], 0, 0, 80, 80, 0, 0, 128, 128);
+        image.draw(game.assets['img/EvilBearSprite.gif'], 0, 0, 128, 128, 0, 0, 128, 128);
         this.image = image;
         this.frame = 5;
         this.isMoving = false;

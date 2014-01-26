@@ -29,7 +29,7 @@ enchant();
 var game;
 window.onload = function() {
     game = new Game(320, windowHeight / scale);
-    game.fps = 15;
+    game.fps = 16;
 
     game.inPlay = false;
 
@@ -50,7 +50,7 @@ window.onload = function() {
     game.bonusFanGunTimeout = 0;
     game.bonusFanGun = false;
 
-    game.preload('sounds/laserPew.wav', 'sounds/shellShock.mp3', 'img/map1.gif', 'img/chara0.gif', 'img/chara1.png', 'img/graphic.png', 'img/EvilBearSprite.gif');
+    game.preload('sounds/laserPew.wav', 'sounds/shellShock.mp3', 'img/map1.gif', 'img/HeroSprite.gif', 'img/EvilBearSprite.gif', 'img/graphic.png');
     game.onload = function() {
 
         game.keybind(65, 'fireLeft');
