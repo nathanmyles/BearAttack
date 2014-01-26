@@ -99,6 +99,8 @@ window.onload = function() {
         var map = MapList[index];
         game.loadStage(map);
 
+        game.assets['sounds/shellShock.mp3'].play();
+
         game.scoreLabel = new ScoreLabel(0, 15);
         game.rootScene.addChild(game.scoreLabel);
 
@@ -117,6 +119,8 @@ window.onload = function() {
         game.stick.x = 15;
         game.stick.y = game.height - 115;
         game.rootScene.addChild(game.stick);
+
+        game.inPlay = true;
     };
     game.loadStage = function(map){
         game.map = map;
