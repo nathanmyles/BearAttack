@@ -88,7 +88,7 @@ window.onload = function() {
                     game.reload();
                 });
 
-                game.rootScene.addChild(game.levelCompleteLabel);
+                game.rootScene.insertBefore(game.levelCompleteLabel, game.pad);
             }
         });
 
@@ -141,7 +141,9 @@ window.onload = function() {
         game.score = 0;
         game.enemysInLevel = 0;
         game.maxEnemysInLevel = game.maxEnemysInLevel * (game.level * 0.5);
-        if(game.enemySpeed < 4) game.enemySpeed++;
+        if(game.enemySpeed < 3 || (game.level > 10 && game.enemySpeed < 4)){
+            game.enemySpeed = Math.floor(game.enemySpeed * 1.5);
+        }
         game.rootScene.removeChild(game.stage);
 
         game.loadLevel();
