@@ -78,7 +78,7 @@ window.onload = function() {
 
                 var spawnPoint = game.map.spawnPoints[rand(game.map.spawnPoints.length)];
                 var badGuy = new BadGuy(spawnPoint.x - 8, spawnPoint.y);
-                game.stage.addChild(badGuy);
+                game.stage.insertBefore(badGuy, game.map.foreground);
                 game.enemysInLevel++;
             }
             if(game.enemysInLevel >= game.maxEnemysInLevel && BadGuy.collection.length == 0 && game.inPlay){
