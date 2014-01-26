@@ -50,7 +50,7 @@ window.onload = function() {
     game.bonusFanGunTimeout = 0;
     game.bonusFanGun = false;
 
-    game.preload('img/map1.gif', 'img/chara0.gif', 'img/chara1.png', 'img/graphic.png');
+    game.preload('sounds/laserPew.wav', 'sounds/shellShock.mp3', 'img/map1.gif', 'img/chara0.gif', 'img/chara1.png', 'img/graphic.png');
     game.onload = function() {
 
         game.keybind(65, 'fireLeft');
@@ -98,6 +98,8 @@ window.onload = function() {
         var index = rand(MapList.length);
         var map = MapList[index];
         game.loadStage(map);
+
+        game.assets['sounds/shellShock.mp3'].play();
 
         game.scoreLabel = new ScoreLabel(0, 15);
         game.rootScene.addChild(game.scoreLabel);

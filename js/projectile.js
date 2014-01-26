@@ -10,6 +10,7 @@ var Projectile = enchant.Class.create(enchant.Sprite, {
         this.rotate(rotation);
         this.image = game.assets['img/graphic.png'];
         this.frame = 1;
+        game.assets['sounds/laserPew.wav'].play();
     },
     onenterframe: function(){
 
