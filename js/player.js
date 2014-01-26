@@ -88,7 +88,9 @@ var Player = enchant.Class.create(enchant.Sprite, {
                 vy = this.bulletSpeed;
             }
         }
-        if((vx || vy) && (Projectile.collection.length < game.maxShots || game.bonusChainGun)){
+        var now = new Date().getTime();
+        if((vx || vy) && (now - game.weaponCoolDown > game.lastShot || game.bonusChainGun)){
+            game.lastShot = now;
             if(vx < -1){
                 this.direction = 1;
             } else if(vx > 1){

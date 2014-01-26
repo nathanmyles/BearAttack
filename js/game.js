@@ -38,7 +38,8 @@ window.onload = function() {
     game.totalScore = 0;
 
     game.enemySpeed = 1;
-    game.maxShots = 3;
+    game.lastShot = 0;
+    game.weaponCoolDown = 500;
     game.enemysInLevel = 0;
     game.maxEnemysInLevel = 25;
     game.score = 0;
