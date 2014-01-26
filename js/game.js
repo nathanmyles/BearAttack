@@ -50,9 +50,11 @@ window.onload = function() {
     game.bonusFanGunTimeout = 0;
     game.bonusFanGun = false;
 
-    game.preload('sounds/laserPew.wav', 'sounds/shellShock.mp3', 'img/map1.gif', 'img/HeroSprite.gif', 'img/EvilBearSprite.gif', 'img/graphic.png');
+    game.preload('sounds/mLaserPew.mp3', 'img/map1.gif', 'img/HeroSprite.gif', 'img/EvilBearSprite.gif', 'img/graphic.png');
     game.onload = function() {
-
+        myAudio = new Audio('sounds/mShellShock.mp3');
+        myAudio.loop = true;
+        myAudio.play();
         game.keybind(65, 'fireLeft');
         game.keybind(68, 'fireRight');
         game.keybind(87, 'fireUp');
@@ -99,7 +101,7 @@ window.onload = function() {
         var map = MapList[index];
         game.loadStage(map);
 
-        game.assets['sounds/shellShock.mp3'].play();
+        //game.assets['sounds/mShellShock.mp3'].play();
 
         game.scoreLabel = new ScoreLabel(0, 15);
         game.rootScene.addChild(game.scoreLabel);
