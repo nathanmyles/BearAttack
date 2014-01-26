@@ -113,13 +113,13 @@ window.onload = function() {
         game.rootScene.addChild(game.levelLabel);
 
         game.pad = new Pad();
-        game.pad.x = game.width - 115;
-        game.pad.y = game.height - 115;
+        game.pad.x = 5;
+        game.pad.y = game.height - 105;
         game.rootScene.addChild(game.pad);
 
         game.stick = new APad();
-        game.stick.x = 15;
-        game.stick.y = game.height - 115;
+        game.stick.x = game.width - 105;
+        game.stick.y = game.height - 105;
         game.rootScene.addChild(game.stick);
 
         game.inPlay = true;
