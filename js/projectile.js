@@ -20,7 +20,7 @@ var Projectile = enchant.Class.create(enchant.Sprite, {
                 game.stage.removeChild(this);
                 game.score++;
                 if(--badGuy.health < 1){
-                    var shouldDrop = rand(3);
+                    var shouldDrop = rand(6);
                     switch(shouldDrop){
                         case 0:
                             new Drop(badGuy.x, badGuy.y);

@@ -28,7 +28,15 @@ var BadGuy = enchant.Class.create(enchant.Sprite, {
         } else {
             this.vx = this.vy = 0;
             var dx = game.enemySpeed;
-            if(Math.abs(this.x - game.player.x) > Math.abs(this.y - game.player.y)){
+            var distanceX = Math.abs(this.x - game.player.x);
+            var distanceY = Math.abs(this.y - game.player.y);
+            var moveX = false;
+            if(Math.abs(distanceX - distanceY) > 25){
+                moveX = distanceX > distanceY;
+            } else {
+                moveX = rand(2);
+            }
+            if(moveX){
                 if(this.x > game.player.x){
                     this.vx = -dx;
                     this.scaleX = -1;
