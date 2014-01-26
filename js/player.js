@@ -150,6 +150,7 @@ var Player = enchant.Class.create(enchant.Sprite, {
 
     },
     hitByEnemy: function(){
+        game.asset['sounds/mLaserPew.mp3'].play(); 
         if(--this.health < 0){
             game.showEndScreen();
         }
