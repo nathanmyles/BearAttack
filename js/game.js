@@ -57,10 +57,10 @@ window.onload = function() {
         myAudio = new Audio('sounds/mShellShock.mp3');
         myAudio.loop = true;
         myAudio.play();
-        game.keybind(65, 'fireLeft');
-        game.keybind(68, 'fireRight');
-        game.keybind(87, 'fireUp');
-        game.keybind(83, 'fireDown');
+        game.keybind(65, 'moveLeft');
+        game.keybind(68, 'moveRight');
+        game.keybind(87, 'moveUp');
+        game.keybind(83, 'moveDown');
 
         MapHelper.loadMaps();
 

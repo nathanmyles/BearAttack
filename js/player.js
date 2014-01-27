@@ -30,16 +30,16 @@ var Player = enchant.Class.create(enchant.Sprite, {
             }
         } else {
             this.vx = this.vy = 0;
-            if (game.input.left || game.pad.input.left) {
+            if (game.input.moveLeft || game.pad.input.left) {
                 this.direction = 1;
                 this.vx = -4;
-            } else if (game.input.right || game.pad.input.right) {
+            } else if (game.input.moveRight || game.pad.input.right) {
                 this.direction = 2;
                 this.vx = 4;
-            } else if (game.input.up || game.pad.input.up) {
+            } else if (game.input.moveUp || game.pad.input.up) {
                 this.direction = 3;
                 this.vy = -4;
-            } else if (game.input.down || game.pad.input.down) {
+            } else if (game.input.moveDown || game.pad.input.down) {
                 this.direction = 0;
                 this.vy = 4;
             }
@@ -60,32 +60,32 @@ var Player = enchant.Class.create(enchant.Sprite, {
                 vy = game.stick.vy * this.bulletSpeed;
             }
         } else {
-            if(game.input.fireLeft && !game.input.fireRight){
-                if(game.input.fireUp && !game.input.fireDown){
+            if(game.input.left && !game.input.right){
+                if(game.input.up && !game.input.down){
                     vx = -this.bulletSpeed;
                     vy = -this.bulletSpeed;
-                } else if(game.input.fireDown && !game.input.fireUp) {
+                } else if(game.input.down && !game.input.up) {
                     vx = -this.bulletSpeed;
                     vy = this.bulletSpeed;
                 } else {
                     vx = -this.bulletSpeed;
                     vy = 0;
                 }
-            } else if(game.input.fireRight && !game.input.fireLeft){
-                if(game.input.fireUp && !game.input.fireDown){
+            } else if(game.input.right && !game.input.left){
+                if(game.input.up && !game.input.down){
                     vx = this.bulletSpeed;
                     vy = -this.bulletSpeed;
-                } else if(game.input.fireDown && !game.input.fireUp) {
+                } else if(game.input.down && !game.input.up) {
                     vx = this.bulletSpeed;
                     vy = this.bulletSpeed;
                 } else {
                     vx = this.bulletSpeed;
                     vy = 0;
                 }
-            } else if(game.input.fireUp && !game.input.fireDown){
+            } else if(game.input.up && !game.input.down){
                 vx = 0;
                 vy = -this.bulletSpeed;
-            } else if(game.input.fireDown && !game.input.fireUp){
+            } else if(game.input.down && !game.input.up){
                 vx = 0;
                 vy = this.bulletSpeed;
             }
