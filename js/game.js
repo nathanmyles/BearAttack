@@ -45,6 +45,7 @@ window.onload = function() {
     game.enemyAttackCoolDown = 2000;
     game.score = 0;
 
+    game.bonusLength = 9000;
     game.bonusChainGunTimeout = 0;
     game.bonusChainGun = false;
     game.bonusFireThroughObjectsTimeout = 0;
@@ -154,9 +155,10 @@ window.onload = function() {
         game.loadLevel();
     };
     game.showEndScreen = function(){
-        game.end(game.score, "SCORE: " + game.score);
         game.totalScore += game.score;
-        game.stage.addChild(new TotalScoreLabel(game.width / 2, (game.height / 2) + 50, game.totalScore));
+        var totalScoreLabel = new TotalScoreLabel(game.width / 2, game.height - 40, game.totalScore);
+        game.rootScene.addChild(totalScoreLabel);
+        game.end(game.score, "SCORE: " + game.score);
     };
     game.start();
 };

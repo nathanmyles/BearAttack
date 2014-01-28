@@ -28,7 +28,7 @@ var ChainGun = enchant.Class.create(Drop, {
             if(game.bonusChainGunTimeout){
                 clearTimeout(game.bonusChainGunTimeout);
             }
-            game.bonusChainGunTimeout = setTimeout(function(){ game.bonusChainGun = false }, 3000);
+            game.bonusChainGunTimeout = setTimeout(function(){ game.bonusChainGun = false }, game.bonusLength);
             game.bonusChainGun = true;
         }
     }
@@ -45,7 +45,7 @@ var FireThroughObjects = enchant.Class.create(Drop, {
             if(game.bonusFireThroughObjectsTimeout){
                 clearTimeout(game.bonusFireThroughObjectsTimeout);
             }
-            game.bonusFireThroughObjectsTimeout = setTimeout(function(){ game.bonusFireThroughObjects = false }, 3000);
+            game.bonusFireThroughObjectsTimeout = setTimeout(function(){ game.bonusFireThroughObjects = false }, game.bonusLength);
             game.bonusFireThroughObjects = true;
         }
     }
@@ -62,7 +62,7 @@ var FanGun = enchant.Class.create(Drop, {
             if(game.bonusFanGunTimeout){
                 clearTimeout(game.bonusFanGunTimeout);
             }
-            game.bonusFanGunTimeout = setTimeout(function(){ game.bonusFanGun = false }, 3000);
+            game.bonusFanGunTimeout = setTimeout(function(){ game.bonusFanGun = false }, game.bonusLength);
             game.bonusFanGun = true;
         }
     }
