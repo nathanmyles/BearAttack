@@ -45,6 +45,8 @@ window.onload = function() {
     game.enemyAttackCoolDown = 2000;
     game.score = 0;
 
+    game.maxPlayerHealth = 10;
+
     game.bonusLength = 9000;
     game.bonusChainGunTimeout = 0;
     game.bonusChainGun = false;
@@ -55,9 +57,9 @@ window.onload = function() {
 
     game.preload('sounds/mPlayerDeath.mp3', 'sounds/mBearDeath.mp3', 'sounds/mhitHurt.mp3', 'sounds/mLaserPew.mp3', 'img/map1.gif', 'img/HeroSprite.gif', 'img/EvilBearSprite.gif', 'img/graphic.png');
     game.onload = function() {
-        myAudio = new Audio('sounds/mShellShock.mp3');
-        myAudio.loop = true;
-        myAudio.play();
+        var audio = new Audio('sounds/mShellShock.mp3');
+        audio.loop = true;
+        audio.play();
         game.keybind(65, 'moveLeft');
         game.keybind(68, 'moveRight');
         game.keybind(87, 'moveUp');

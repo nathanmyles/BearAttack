@@ -74,19 +74,28 @@ var BadGuy = enchant.Class.create(enchant.Sprite, {
     hitByPlayer: function(){
         if(--this.health < 1){
             game.assets['sounds/mBearDeath.mp3'].play();
-            var shouldDrop = rand(20);
+            var shouldDrop = rand(30);
             switch(shouldDrop){
                 case 0:
                 case 1:
                     new Drop(this.x, this.y);
                     break;
                 case 2:
-                    new ChainGun(this.x, this.y);
+                    new HealthOne(this.x, this.y);
                     break;
                 case 3:
-                    new FireThroughObjects(this.x, this.y);
+                    new HealthTwo(this.x, this.y);
                     break;
                 case 4:
+                    new HealthFive(this.x, this.y);
+                    break;
+                case 5:
+                    new ChainGun(this.x, this.y);
+                    break;
+                case 6:
+                    new FireThroughObjects(this.x, this.y);
+                    break;
+                case 7:
                     new FanGun(this.x, this.y);
                     break;
             }

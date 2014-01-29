@@ -17,6 +17,45 @@ var Drop = enchant.Class.create(enchant.Sprite, {
     }
 });
 
+var HealthOne = enchant.Class.create(Drop, {
+    initialize: function(x, y){
+        Drop.call(this, x, y);
+        this.frame = 15;
+    },
+    onenterframe: function(){
+        if(game.player.intersect(this)){
+            game.stage.removeChild(this);
+            game.player.health = (game.player.health + 1 < game.maxPlayerHealth) ? game.player.health + 1 : game.maxPlayerHealth;
+        }
+    }
+});
+
+var HealthTwo = enchant.Class.create(Drop, {
+    initialize: function(x, y){
+        Drop.call(this, x, y);
+        this.frame = 16;
+    },
+    onenterframe: function(){
+        if(game.player.intersect(this)){
+            game.stage.removeChild(this);
+            game.player.health = (game.player.health + 2 < game.maxPlayerHealth) ? game.player.health + 2 : game.maxPlayerHealth;
+        }
+    }
+});
+
+var HealthFive = enchant.Class.create(Drop, {
+    initialize: function(x, y){
+        Drop.call(this, x, y);
+        this.frame = 28;
+    },
+    onenterframe: function(){
+        if(game.player.intersect(this)){
+            game.stage.removeChild(this);
+            game.player.health = (game.player.health + 5 < game.maxPlayerHealth) ? game.player.health + 5 : game.maxPlayerHealth;
+        }
+    }
+});
+
 var ChainGun = enchant.Class.create(Drop, {
     initialize: function(x, y){
         Drop.call(this, x, y);

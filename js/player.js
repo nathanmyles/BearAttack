@@ -11,7 +11,7 @@ var Player = enchant.Class.create(enchant.Sprite, {
         this.direction = 0;
         this.walk = 1;
         this.bulletSpeed = 10;
-        this.health = 10;
+        this.health = game.maxPlayerHealth;
         this.scaleX = -1;
         this.lastShot = 0;
     },
