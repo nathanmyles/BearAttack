@@ -114,7 +114,7 @@ window.onload = function() {
         game.lifeLabel = new LifeLabel(0, 0, game.player.health);
         game.rootScene.addChild(game.lifeLabel);
 
-        game.levelLabel = new LevelLabel((game.width / 2), game.height - 20, game.level);
+        game.levelLabel = new LevelLabel((game.width / 2), game.height - 13, game.level);
         game.rootScene.addChild(game.levelLabel);
 
         game.pad = new Pad();
@@ -158,7 +158,7 @@ window.onload = function() {
     };
     game.showEndScreen = function(){
         game.totalScore += game.score;
-        var totalScoreLabel = new TotalScoreLabel(game.width / 2, game.height - 40, game.totalScore);
+        var totalScoreLabel = new TotalScoreLabel(game.width / 2, game.height - 26, game.totalScore);
         game.rootScene.addChild(totalScoreLabel);
         game.end(game.score, "SCORE: " + game.score);
     };

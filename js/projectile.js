@@ -18,7 +18,9 @@ var Projectile = enchant.Class.create(enchant.Sprite, {
         for(var i = 0, len = badGuys.length; i < len; i++){
             var badGuy = badGuys[i];
             if(badGuy.within(this, 12)){
-                game.stage.removeChild(this);
+                if(!game.bonusFireThroughObjects){
+                    game.stage.removeChild(this);
+                }
                 game.score++;
                 badGuy.hitByPlayer();
             }
