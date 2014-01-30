@@ -57,9 +57,12 @@ window.onload = function() {
 
     game.preload('sounds/mPlayerDeath.mp3', 'sounds/mBearDeath.mp3', 'sounds/mhitHurt.mp3', 'sounds/mLaserPew.mp3', 'img/map1.gif', 'img/HeroSprite.gif', 'img/EvilBearSprite.gif', 'img/graphic.png');
     game.onload = function() {
+
         var audio = new Audio('sounds/mShellShock.mp3');
         audio.loop = true;
         audio.play();
+
+        game.keybind(32, 'space');
         game.keybind(65, 'moveLeft');
         game.keybind(68, 'moveRight');
         game.keybind(87, 'moveUp');
@@ -69,7 +72,7 @@ window.onload = function() {
 
         game.loadLevel();
 
-        game.rootScene.addEventListener('enterframe', function(e) {
+        game.rootScene.addEventListener(Event.ENTER_FRAME, function(e) {
             game.scoreLabel.score = game.score;
             game.lifeLabel.life = game.player.health;
             game.levelLabel.level = game.level;
@@ -96,6 +99,16 @@ window.onload = function() {
                 });
 
                 game.rootScene.insertBefore(game.levelCompleteLabel, game.pad);
+            }
+        });
+
+        game.addEventListener(Event.INPUT_START, function(e){
+            if(game.input.space){
+                if(game.ready){
+                    game.pause();
+                } else {
+                    game.resume();
+                }
             }
         });
 
