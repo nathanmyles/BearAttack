@@ -43,7 +43,7 @@ var HealthTwo = enchant.Class.create(Drop, {
     }
 });
 
-var HealthFive = enchant.Class.create(Drop, {
+var HealthThree = enchant.Class.create(Drop, {
     initialize: function(x, y){
         Drop.call(this, x, y);
         this.frame = 28;
@@ -51,7 +51,7 @@ var HealthFive = enchant.Class.create(Drop, {
     onenterframe: function(){
         if(game.player.intersect(this)){
             game.stage.removeChild(this);
-            game.player.health = (game.player.health + 5 < game.maxPlayerHealth) ? game.player.health + 5 : game.maxPlayerHealth;
+            game.player.health = (game.player.health + 3 < game.maxPlayerHealth) ? game.player.health + 3 : game.maxPlayerHealth;
         }
     }
 });

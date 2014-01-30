@@ -87,7 +87,7 @@ var BadGuy = enchant.Class.create(enchant.Sprite, {
                     new HealthTwo(this.x, this.y);
                     break;
                 case 4:
-                    new HealthFive(this.x, this.y);
+                    new HealthThree(this.x, this.y);
                     break;
                 case 5:
                     new ChainGun(this.x, this.y);
