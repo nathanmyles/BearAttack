@@ -120,8 +120,6 @@ window.onload = function() {
         var map = MapList[index];
         game.loadStage(map);
 
-        //game.assets['sounds/mShellShock.mp3'].play();
-
         game.scoreLabel = new ScoreLabel(0, 15);
         game.rootScene.addChild(game.scoreLabel);
 
