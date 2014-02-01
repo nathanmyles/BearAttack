@@ -55,7 +55,8 @@ window.onload = function() {
     game.bonusFanGunTimeout = 0;
     game.bonusFanGun = false;
 
-    game.preload('sounds/mPlayerDeath.mp3', 'sounds/mBearDeath.mp3', 'sounds/mhitHurt.mp3', 'sounds/mLaserPew.mp3', 'img/map1.gif', 'img/HeroSprite.gif', 'img/EvilBearSprite.gif', 'img/graphic.png');
+    game.preload('sounds/mPlayerDeath.mp3', 'sounds/mBearDeath.mp3', 'sounds/mHitHurt.mp3', 'sounds/mLaserPew.mp3',
+                 'img/map1.gif', 'img/HeroSprite.gif', 'img/EvilBearSprite.gif', 'img/graphic.png');
     game.onload = function() {
 
         var audio = new Audio('sounds/mShellShock.mp3');
